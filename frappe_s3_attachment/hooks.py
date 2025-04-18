@@ -11,6 +11,17 @@ app_color = "grey"
 app_email = "ramesh.ravi@zerodha.com"
 app_license = "MIT"
 
+doctype_list_js = {
+    "S3 Attachment Settings": ["frappe_s3_attachment/doctype/s3_attachment_settings/s3_attachment_settings.js"]
+}
+
+doc_events = {
+    "File": {
+        "after_insert": "frappe_s3_attachment.controller.file_upload_to_s3",
+        "on_trash": "frappe_s3_attachment.controller.delete_from_cloud"
+    }
+}
+
 # Includes in <head>
 # ------------------
 
@@ -27,9 +38,6 @@ app_license = "MIT"
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-doctype_list_js = {
-    "S3 Attachment Settings": ["frappe_s3_attachment/doctype/s3_attachment_settings/s3_attachment_settings.js"]
-}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -80,7 +88,6 @@ doctype_list_js = {
 # Document Events
 # ---------------
 # Hook on document methods and events
-
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
@@ -88,13 +95,6 @@ doctype_list_js = {
 # 		"on_trash": "method"
 #	}
 # }
-
-doc_events = {
-    "File": {
-        "after_insert": "frappe_s3_attachment.controller.file_upload_to_s3",
-        "on_trash": "frappe_s3_attachment.controller.delete_from_cloud"
-    }
-}
 
 # Scheduled Tasks
 # ---------------
@@ -128,4 +128,3 @@ doc_events = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "frappe_s3_attachment.event.get_events"
 # }
-
