@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import base64
 import datetime
 import os
 import random
@@ -7,12 +8,12 @@ import re
 import string
 
 import boto3
+import urllib.parse
 
 from botocore.client import Config
 from botocore.exceptions import ClientError
 
 import frappe
-
 
 import magic
 
@@ -144,6 +145,12 @@ class S3Operations(object):
         mime_type = magic.from_file(file_path, mime=True)
         key = self.key_generator(file_name, parent_doctype, parent_name, is_private)
         content_type = mime_type
+
+        try:
+            file_name.encode('ascii')
+        except UnicodeEncodeError:
+            file_name = urllib.parse.quote(file_name)
+
         try:
             if is_private:
                 self.S3_PRIVATE_CLIENT.upload_file(
@@ -245,7 +252,8 @@ class S3Operations(object):
         }
 
         if file_name:
-            params['ResponseContentDisposition'] = 'filename={}'.format(file_name)
+            file_name = urllib.parse.quote(file_name)
+            params['ResponseContentDisposition'] = "attachment; filename=\"fallback.pdf\"; filename*=UTF-8''{}".format(file_name)
 
         url = client.generate_presigned_url(
             'get_object',
