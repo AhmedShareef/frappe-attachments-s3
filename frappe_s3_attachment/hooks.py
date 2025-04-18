@@ -11,6 +11,8 @@ app_color = "grey"
 app_email = "ramesh.ravi@zerodha.com"
 app_license = "MIT"
 
+export_python_type_annotations = True
+
 doctype_list_js = {
     "S3 Attachment Settings": ["frappe_s3_attachment/doctype/s3_attachment_settings/s3_attachment_settings.js"]
 }
