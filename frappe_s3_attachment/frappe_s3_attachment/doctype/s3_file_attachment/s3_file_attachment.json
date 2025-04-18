@@ -7,15 +7,25 @@
  "field_order": [
   "general_configuration",
   "delete_file_from_cloud",
-  "aws_credentials",
-  "bucket_name",
-  "aws_key",
-  "aws_secret",
+  "private_bucket_section",
+  "private_bucket_name",
+  "private_aws_key",
+  "private_aws_secret",
   "section_break_7",
-  "endpoint_url",
-  "region_name",
-  "folder_name",
-  "signed_url_expiry_time",
+  "private_endpoint_url",
+  "private_region_name",
+  "private_folder_name",
+  "private_signed_url_expiry_time",
+  "public_bucket_section",
+  "no_separate_public_bucket",
+  "public_bucket_name",
+  "public_aws_key",
+  "public_aws_secret",
+  "column_break_qgso",
+  "public_endpoint_url",
+  "public_region_name",
+  "public_folder_name",
+  "public_signed_url_expiry_time",
   "section_break_10",
   "migrate_existing_files"
  ],
@@ -32,45 +42,8 @@
    "label": "Delete file from cloud "
   },
   {
-   "fieldname": "aws_credentials",
-   "fieldtype": "Section Break",
-   "label": "AWS credentials"
-  },
-  {
-   "fieldname": "bucket_name",
-   "fieldtype": "Data",
-   "label": "Bucket Name"
-  },
-  {
-   "fieldname": "aws_key",
-   "fieldtype": "Data",
-   "label": "AWS Key"
-  },
-  {
-   "fieldname": "aws_secret",
-   "fieldtype": "Data",
-   "label": "AWS Secret"
-  },
-  {
    "fieldname": "section_break_7",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "region_name",
-   "fieldtype": "Data",
-   "label": "S3 Bucket Region Name"
-  },
-  {
-   "fieldname": "folder_name",
-   "fieldtype": "Data",
-   "label": "Folder Name"
-  },
-  {
-   "default": "300",
-   "description": "time should be in seconds",
-   "fieldname": "signed_url_expiry_time",
-   "fieldtype": "Int",
-   "label": "Signed URL expiry time"
   },
   {
    "fieldname": "section_break_10",
@@ -82,14 +55,104 @@
    "label": "Migrate Existing Files"
   },
   {
-   "fieldname": "endpoint_url",
+   "fieldname": "private_bucket_section",
+   "fieldtype": "Section Break",
+   "label": "Private Bucket"
+  },
+  {
+   "fieldname": "private_bucket_name",
+   "fieldtype": "Data",
+   "label": "Bucket Name"
+  },
+  {
+   "fieldname": "private_aws_key",
+   "fieldtype": "Data",
+   "label": "AWS Key"
+  },
+  {
+   "fieldname": "private_endpoint_url",
    "fieldtype": "Data",
    "label": "Endpoint URL"
+  },
+  {
+   "fieldname": "private_region_name",
+   "fieldtype": "Data",
+   "label": "S3 Bucket Region Name"
+  },
+  {
+   "fieldname": "private_folder_name",
+   "fieldtype": "Data",
+   "label": "Folder Name"
+  },
+  {
+   "default": "300",
+   "description": "time should be in seconds",
+   "fieldname": "private_signed_url_expiry_time",
+   "fieldtype": "Int",
+   "label": "Signed URL expiry time"
+  },
+  {
+   "fieldname": "public_bucket_name",
+   "fieldtype": "Data",
+   "label": "Bucket Name"
+  },
+  {
+   "fieldname": "public_aws_key",
+   "fieldtype": "Data",
+   "label": "AWS Key"
+  },
+  {
+   "fieldname": "public_aws_secret",
+   "fieldtype": "Data",
+   "label": "AWS Secret"
+  },
+  {
+   "fieldname": "column_break_qgso",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "public_endpoint_url",
+   "fieldtype": "Data",
+   "label": "Endpoint URL"
+  },
+  {
+   "fieldname": "public_region_name",
+   "fieldtype": "Data",
+   "label": "S3 Bucket Region Name"
+  },
+  {
+   "fieldname": "public_folder_name",
+   "fieldtype": "Data",
+   "label": "Folder Name"
+  },
+  {
+   "description": "time should be in seconds",
+   "fieldname": "public_signed_url_expiry_time",
+   "fieldtype": "Int",
+   "label": "Signed URL expiry time"
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "eval:!doc.no_separate_public_bucket",
+   "fieldname": "public_bucket_section",
+   "fieldtype": "Section Break",
+   "label": "Public Bucket"
+  },
+  {
+   "default": "0",
+   "fieldname": "no_separate_public_bucket",
+   "fieldtype": "Check",
+   "label": "Same as Private Bucket"
+  },
+  {
+   "fieldname": "private_aws_secret",
+   "fieldtype": "Data",
+   "label": "AWS Secret"
   }
  ],
  "issingle": 1,
  "links": [],
- "modified": "2025-04-17 23:47:04.670080",
+ "modified": "2025-04-18 11:03:55.549053",
  "modified_by": "Administrator",
  "module": "Frappe S3 Attachment",
  "name": "S3 File Attachment",
