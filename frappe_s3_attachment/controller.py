@@ -177,7 +177,7 @@ class S3Operations(object):
         """ Delete file from s3"""
 
         if self.s3_settings_doc.delete_file_from_cloud:
-            
+
             is_private = frappe.db.get_value("File", { "content_hash": key }, "is_private")
 
             try:
@@ -283,11 +283,18 @@ def file_upload_to_s3(doc, method):
             method = "frappe_s3_attachment.controller.generate_file"
             file_url = """/api/method/{0}?key={1}&file_name={2}""".format(method, key, doc.file_name)
         else:
-            file_url = '{}/{}/{}'.format(
-                s3_upload.S3_PUBLIC_CLIENT.meta.endpoint_url,
-                s3_upload.PUBLIC_BUCKET,
-                key
-            )
+            if s3_upload.s3_settings_doc.public_proxy_url:
+                file_url = '{}/{}'.format(
+                    s3_upload.s3_settings_doc.public_proxy_url,
+                    key
+                )
+            else:
+                file_url = '{}/{}/{}'.format(
+                    s3_upload.S3_PUBLIC_CLIENT.meta.endpoint_url,
+                    s3_upload.PUBLIC_BUCKET,
+                    key
+                )
+
         os.remove(file_path)
         frappe.db.sql("""UPDATE `tabFile` SET file_url=%s, folder=%s,
             old_parent=%s, content_hash=%s WHERE name=%s""", (

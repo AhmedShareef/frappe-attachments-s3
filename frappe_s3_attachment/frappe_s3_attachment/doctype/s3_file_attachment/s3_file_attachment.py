@@ -29,6 +29,7 @@ class S3FileAttachment(Document):
 		public_bucket_name: DF.Data | None
 		public_endpoint_url: DF.Data | None
 		public_folder_name: DF.Data | None
+		public_proxy_url: DF.Data | None
 		public_region_name: DF.Data | None
 		public_signed_url_expiry_time: DF.Int
 	# end: auto-generated types
