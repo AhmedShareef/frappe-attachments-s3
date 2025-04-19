@@ -392,7 +392,7 @@ def s3_file_regex_match(file_url):
 @frappe.whitelist()
 def migrate_existing_files():
     if not frappe.db.exists('RQ Job', { 'job_name': 'migrate_existing_files', 'status': ['not in', ['failed', 'finished']] }):
-        frappe.enqueue(_migrate_existing_files, queue='long', job_name='migrate_existing_files')
+        frappe.enqueue(_migrate_existing_files, queue='long', job_name='migrate_existing_files', timeout=7200)
     return True
 
 def _migrate_existing_files():
