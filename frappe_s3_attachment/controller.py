@@ -360,13 +360,19 @@ def upload_existing_files_s3(name):
 
         if doc.is_private:
             method = "frappe_s3_attachment.controller.generate_file"
-            file_url = """/api/method/{0}?key={1}""".format(method, key)
+            file_url = """/api/method/{0}?key={1}&file_name={2}""".format(method, key, doc.file_name)
         else:
-            file_url = '{}/{}/{}'.format(
-                s3_upload.S3_PUBLIC_CLIENT.meta.endpoint_url,
-                s3_upload.PUBLIC_BUCKET,
-                key
-            )
+            if s3_upload.s3_settings_doc.public_proxy_url:
+                file_url = '{}/{}'.format(
+                    s3_upload.s3_settings_doc.public_proxy_url,
+                    key
+                )
+            else:
+                file_url = '{}/{}/{}'.format(
+                    s3_upload.S3_PUBLIC_CLIENT.meta.endpoint_url,
+                    s3_upload.PUBLIC_BUCKET,
+                    key
+                )
 
         # Remove file from local.
         os.remove(file_path)
