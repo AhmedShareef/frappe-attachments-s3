@@ -253,7 +253,7 @@ class S3Operations(object):
 
         if file_name:
             file_name = urllib.parse.quote(file_name)
-            params['ResponseContentDisposition'] = "attachment; filename=\"fallback.pdf\"; filename*=UTF-8''{}".format(file_name)
+            params['ResponseContentDisposition'] = "inline; filename=\"fallback.pdf\"; filename*=UTF-8''{}".format(file_name)
 
         url = client.generate_presigned_url(
             'get_object',
